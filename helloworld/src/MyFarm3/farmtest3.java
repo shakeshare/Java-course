@@ -1,16 +1,23 @@
 package MyFarm3;
 
 import java.util.Scanner;
+import java.io.*;
 
 public class farmtest3 {
     public static void main(String[] args) {
         farm3 myFarm = new farm3();
         Scanner scanner = new Scanner(System.in);
+        String saveFile = "farm.txt";
 
-        System.out.println("初始化农场，输入行数：");
-        int rows = scanner.nextInt();
-        scanner.nextLine();
-        myFarm.initFarm(rows);
+        File file = new File(saveFile);
+        if (file.exists()) {
+            myFarm.Load(saveFile);   // 程序启动时，可以先判断本地是否存在保存文件
+        } else {   
+            System.out.println("初始化农场，输入行数：");
+            int rows = scanner.nextInt();
+            scanner.nextLine();
+            myFarm.initFarm(rows);
+        }
 
         while (true) {
             System.out.println("======二维开心农场管理系统======");
@@ -22,8 +29,9 @@ public class farmtest3 {
             System.out.println("6. 判断指定农场对象类型");
             System.out.println("7. 收获农作物或出售动物");
             System.out.println("8. 输出所有农场对象");
-            System.out.println("9. 清空农场");      
-            System.out.println("0. 退出");
+            System.out.println("9. 清空农场");
+            System.out.println("10. 加載農場狀態");
+            System.out.println("0. 退出并保存");
             int choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {
@@ -72,7 +80,7 @@ public class farmtest3 {
                     System.out.println("输入农场对象名称");
                     String searchType = scanner.nextLine();
                     FarmObject obj = myFarm.SearchFarmObject(searchType);
-                    System.out.println("类型: " + farm3 .check(obj));
+                    System.out.println("类型: " + farm3.check(obj));
                     break;
                 }
                 case 4: {
@@ -120,14 +128,18 @@ public class farmtest3 {
                     myFarm.clearAll();
                     break;
                 }
-                case 0: {
-                    System.out.println("退出程序");
-                    scanner.close();
+                case 10: {
+                    myFarm.Load(saveFile);
                     break;
+                }
+                case 0: {
+                    myFarm.Save(saveFile);
+                    scanner.close();
+                    return;
                 }
                 default: {
                     System.out.println("无效选择，请重新输入");
-                    continue;
+                    break;
                 }
             }
         }

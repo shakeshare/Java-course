@@ -93,7 +93,7 @@ public class farmtest {
                 case 8: {
                     myFarm.printAll();
                     break;
-                } 
+                }
                 case 0: {
                     System.out.println("退出程序");
                     scanner.close();
