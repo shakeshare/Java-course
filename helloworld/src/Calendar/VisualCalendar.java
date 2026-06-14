@@ -47,6 +47,10 @@ public class VisualCalendar {
                 System.out.println();  
             }  
             c.add(Calendar.DATE, 1);//打印一个日子后让日期加1  
+
         }  
+        
+      
+        
     }  
 }  
