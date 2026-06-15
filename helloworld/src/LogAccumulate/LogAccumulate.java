@@ -31,7 +31,8 @@ public class LogAccumulate {
         }
         sc.close();
         System.out.println(ip.size());
-        List<String> sortedNames = new ArrayList<>(logCount.keySet());
+        ArrayList<String> sortedNames = new ArrayList<>(logCount.keySet());
+        // List<String> sortedNames = new ArrayList<>(ip);
         Collections.sort(sortedNames);
         for (int i = 0; i < sortedNames.size(); i++) {
             String name = sortedNames.get(i);
