@@ -1,8 +1,8 @@
 package UNION;
 
-import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+import edu.princeton.cs.algs4.*;
 
-public class Percolation {
+public class AnotherPer {
     private int N; // grid size
     private boolean[][] grid; // grid to represent open/blocked sites
     private QuickUnionUF uf; // union-find for percolation
@@ -10,7 +10,7 @@ public class Percolation {
     private int virtualtop;
     private int virtualbottom;
 
-    public Percolation(int N) // create N-by-N grid, with all sites blocked
+    public AnotherPer(int N) // create N-by-N grid, with all sites blocked
     {
         this.N = N;
         if (N <= 0) {

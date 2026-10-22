@@ -66,12 +66,17 @@ public double MonteCarloSimulation() // perform the Monte Carlo simulation to es
 
 public static void main(String[] args)      // test client, described below 
 {
-    int N=Integer.parseInt(args[0]);
-    int T=Integer.parseInt(args[1]);
+    int N=Integer.valueOf(args[0]);
+    int T=Integer.valueOf(args[1]);
+
+    long startTime = System.nanoTime();
     PercolationStats stats = new PercolationStats(N, T);
+    long endTime = System.nanoTime();
+
     System.out.println("Mean: " + stats.mean());
     System.out.println("Standard Deviation: " + stats.stddev());
     System.out.println("Lower Bound: " + stats.confidenceLo());
     System.out.println("Upper Bound: " + stats.confidenceHi());
+    System.out.println("Runtime: " + (endTime - startTime) / 1_000_000.0 + " ms");
 }
 }
