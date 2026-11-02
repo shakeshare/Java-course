@@ -22,61 +22,60 @@ public class PercolationStats {
 
     public double mean() // sample mean of percolation threshold
     {
-            double sum = 0.0;
-            for (int i = 0; i < T; i++) {
-                sum += Results[i];
-            }
-            return sum / T;
+        double sum = 0.0;
+        for (int i = 0; i < T; i++) {
+            sum += Results[i];
+        }
+        return sum / T;
     }
 
     public double stddev() // sample standard deviation of percolation threshold
     {
-            double mean = mean();
-            double sum = 0.0;
-            for (int i = 0; i < T; i++) {
-                sum += (Results[i] - mean) * (Results[i] - mean);
-            }
-            return Math.sqrt(sum / (T - 1));
+        double mean = mean();
+        double sum = 0.0;
+        for (int i = 0; i < T; i++) {
+            sum += (Results[i] - mean) * (Results[i] - mean);
+        }
+        return Math.sqrt(sum / (T - 1));
     }
 
-    public double confidenceLo() // returns lower bound of the 95% confidence interval 
+    public double confidenceLo() // returns lower bound of the 95% confidence interval
     {
         return mean() - (1.96 * stddev() / Math.sqrt(T));
     }
 
-    public double confidenceHi() // returns upper bound of the 95% confidence interval 
+    public double confidenceHi() // returns upper bound of the 95% confidence interval
     {
         return mean() + (1.96 * stddev() / Math.sqrt(T));
     }
 
-public double MonteCarloSimulation() // perform the Monte Carlo simulation to estimate the percolation threshold
-{
-   Percolation percolation = new Percolation(N);
-   int openSites = 0;
-   while (!percolation.percolates()) {
-         int i = StdRandom.uniform(1, N + 1);
-         int j = StdRandom.uniform(1, N + 1);
-         if (!percolation.isOpen(i, j)) {
-              percolation.open(i, j);
-              openSites++;
-         }
+    public double MonteCarloSimulation() // perform the Monte Carlo simulation to estimate the percolation threshold
+    {
+        Percolation percolation = new Percolation(N);
+        int openSites = 0;
+        while (!percolation.percolates()) {
+            int i = StdRandom.uniform(1, N + 1);
+            int j = StdRandom.uniform(1, N + 1);
+            if (!percolation.isOpen(i, j)) {
+                percolation.open(i, j);
+                openSites++;
+            }
+        }
+        return (double) openSites / (N * N);
     }
-    return (double) openSites / (N * N);
-}
 
-public static void main(String[] args)      // test client, described below 
-{
-    int N=Integer.valueOf(args[0]);
-    int T=Integer.valueOf(args[1]);
+    public static void main(String[] args) // test client, described below
+    {
+        int N = Integer.valueOf(args[0]);
+        int T = Integer.valueOf(args[1]);
 
-    long startTime = System.nanoTime();
-    PercolationStats stats = new PercolationStats(N, T);
-    long endTime = System.nanoTime();
-
-    System.out.println("Mean: " + stats.mean());
-    System.out.println("Standard Deviation: " + stats.stddev());
-    System.out.println("Lower Bound: " + stats.confidenceLo());
-    System.out.println("Upper Bound: " + stats.confidenceHi());
-    System.out.println("Runtime: " + (endTime - startTime) / 1_000_000.0 + " ms");
-}
+        long startTime = System.nanoTime();
+        PercolationStats stats = new PercolationStats(N, T);
+        System.out.println("Mean: " + stats.mean());
+        System.out.println("Standard Deviation: " + stats.stddev());
+        System.out.println("Lower Bound: " + stats.confidenceLo());
+        System.out.println("Upper Bound: " + stats.confidenceHi());
+        long endTime = System.nanoTime();
+        System.out.println("Runtime: " + (endTime - startTime) / 1_000_000.0 + " ms");
+    }
 }

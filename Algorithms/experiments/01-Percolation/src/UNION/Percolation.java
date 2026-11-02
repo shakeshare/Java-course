@@ -38,7 +38,7 @@ public class Percolation {
             if (i == N) {
                 uf.union(index, virtualbottom);
             }
-            // Connect to adjacent open sites
+            
             if (i > 1 && isOpen(i - 1, j)) {
                 uf.union(index, index(i - 1, j));
                 fullnessUf.union(index, index(i - 1, j));
