@@ -20,11 +20,52 @@ public class RandomQuickSort implements SortAlgorithm {
 
     @Override
     public void sort(int[] values) {
-        // TODO: Shuffle or choose a random pivot, then implement quicksort.
+        shuffle(values);
+        sortRange(values, 0, values.length - 1);
     }
 
     private int partition(int[] values, int low, int high) {
-        // TODO: Partition values around a randomly selected pivot.
-        return low;
+        int pivot = values[low];
+        int left = low - 1;
+        int right = high + 1;
+
+        while (true) {
+            do {
+                left++;
+            } while (values[left] < pivot);
+
+            do {
+                right--;
+            } while (values[right] > pivot);
+
+            if (left >= right) {
+                return right;
+            }
+
+            swap(values, left, right);
+        }
+    }
+
+    private void sortRange(int[] values, int low, int high) {
+        if (low >= high) {
+            return;
+        }
+
+        int split = partition(values, low, high);
+        sortRange(values, low, split);
+        sortRange(values, split + 1, high);
+    }
+
+    private void shuffle(int[] values) {
+        for (int current = values.length - 1; current > 0; current--) {
+            int randomIndex = random.nextInt(current + 1);
+            swap(values, current, randomIndex);
+        }
+    }
+
+    private void swap(int[] values, int first, int second) {
+        int temporary = values[first];
+        values[first] = values[second];
+        values[second] = temporary;
     }
 }
