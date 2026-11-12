@@ -20,6 +20,7 @@ public class DijkstraThreeWayQuickSort implements SortAlgorithm {
 
     @Override
     public void sort(int[] values) {
+        shuffle(values);
         sortRange(values, 0, values.length - 1);
     }
 
@@ -28,8 +29,6 @@ public class DijkstraThreeWayQuickSort implements SortAlgorithm {
             return;
         }
 
-        int pivotIndex = low + random.nextInt(high - low + 1);
-        swap(values, low, pivotIndex);
         int pivot = values[low];
 
         int less = low;
@@ -51,6 +50,13 @@ public class DijkstraThreeWayQuickSort implements SortAlgorithm {
 
         sortRange(values, low, less - 1);
         sortRange(values, greater + 1, high);
+    }
+
+    private void shuffle(int[] values) {
+        for (int current = values.length - 1; current > 0; current--) {
+            int randomIndex = random.nextInt(current + 1);
+            swap(values, current, randomIndex);
+        }
     }
 
     private void swap(int[] values, int first, int second) {

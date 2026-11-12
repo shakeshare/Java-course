@@ -40,7 +40,7 @@ public class SortExperiment {
 
             // TODO: Record memory usage and write the ten runs plus average to a report.
             double averageMicros = totalNanos / (RUNS * 1_000.0);
-            System.out.printf("%-5s average: %.3f microseconds%n", algorithm.name(), averageMicros);
+            System.out.printf("%-5s average: %.3f ms%n", algorithm.name(), averageMicros);
         }
     }
 }
